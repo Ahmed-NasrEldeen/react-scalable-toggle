@@ -1,0 +1,9 @@
+.st-theme-antd {
+  --st-on-bg: var(--ant-color-primary, #1677ff);
+  --st-off-bg: var(--ant-color-fill-tertiary, #f0f0f0);
+  --st-off-color: var(--ant-color-text-secondary, #595959);
+  --st-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --st-font-size: 12px;
+  --st-font-weight: 500;
+  --st-shadow: 0 2px 4px rgb(0 0 0 / 14%);
+}

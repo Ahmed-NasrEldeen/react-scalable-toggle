@@ -1,0 +1,8 @@
+.st-theme-chakra {
+  --st-on-bg: var(--chakra-colors-teal-500, #319795);
+  --st-off-bg: var(--chakra-colors-teal-50, #e6fffa);
+  --st-off-color: var(--chakra-colors-teal-800, #285e61);
+  --st-font-family: var(--chakra-fonts-body, Inter, system-ui, sans-serif);
+  --st-font-weight: 700;
+  --st-shadow: 0 1px 3px rgb(49 151 149 / 28%);
+}

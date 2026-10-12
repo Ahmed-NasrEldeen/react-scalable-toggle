@@ -1,0 +1,8 @@
+.st-theme-radix {
+  --st-on-bg: var(--gray-12, #111827);
+  --st-off-bg: var(--gray-3, #f3f4f6);
+  --st-off-color: var(--gray-12, #111827);
+  --st-font-family: system-ui, sans-serif;
+  --st-font-weight: 700;
+  --st-shadow: 0 0 0 1px rgb(17 24 39 / 14%);
+}

@@ -1,0 +1,9 @@
+.st-theme-mui {
+  --st-on-bg: var(--mui-palette-primary-main, #1976d2);
+  --st-off-bg: var(--mui-palette-grey-300, #e0e0e0);
+  --st-off-color: var(--mui-palette-text-primary, #263238);
+  --st-font-family: var(--mui-font-family, Roboto, Arial, sans-serif);
+  --st-font-weight: 500;
+  --st-shadow: 0 2px 4px rgb(0 0 0 / 22%);
+  --st-duration: 200ms;
+}

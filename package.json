@@ -1,11 +1,12 @@
 {
   "name": "react-scalable-toggle",
-  "version": "0.0.0",
+  "version": "0.1.0-beta.0",
   "description": "A React switch component that scales proportionally from one height value.",
-  "private": true,
+  "private": false,
   "type": "module",
   "sideEffects": [
     "./dist/style.css",
+    "./dist/themes/*.css",
     "./src/ScalableToggle.css"
   ],
   "files": [
@@ -20,24 +21,39 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./themes/antd.css": "./dist/themes/antd.css",
+    "./themes/chakra.css": "./dist/themes/chakra.css",
+    "./themes/mui.css": "./dist/themes/mui.css",
+    "./themes/radix.css": "./dist/themes/radix.css",
+    "./themes/rsuite.css": "./dist/themes/rsuite.css",
+    "./themes/tailwind.css": "./dist/themes/tailwind.css"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --css",
+    "build": "tsup src/index.ts --format esm,cjs --dts && node scripts/copy-style.mjs",
+    "build:demo": "vite build demo --base=/react-scalable-toggle/ --outDir=../demo-dist --emptyOutDir",
+    "check": "npm run typecheck && npm run test && npm run build && npm run build:demo",
+    "dev": "vite demo --host 127.0.0.1",
+    "test": "vitest run --environment jsdom",
     "typecheck": "tsc --noEmit",
-    "dev": "vite demo --host 127.0.0.1"
+    "test:watch": "vitest --environment jsdom"
   },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
+    "jsdom": "^25.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tsup": "^8.0.0",
     "typescript": "^5.5.0",
-    "vite": "^5.4.0"
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0"
   },
   "keywords": [
     "react",
@@ -47,5 +63,13 @@
     "accessible",
     "component"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahmed-NasrEldeen/react-scalable-toggle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Ahmed-NasrEldeen/react-scalable-toggle/issues"
+  },
+  "homepage": "https://ahmed-nasreldeen.github.io/react-scalable-toggle/",
   "license": "MIT"
 }

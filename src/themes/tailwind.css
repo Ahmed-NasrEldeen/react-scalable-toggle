@@ -1,0 +1,8 @@
+.st-theme-tailwind {
+  --st-on-bg: var(--color-indigo-600, #4f46e5);
+  --st-off-bg: var(--color-indigo-100, #e0e7ff);
+  --st-off-color: var(--color-indigo-800, #3730a3);
+  --st-font-family: ui-sans-serif, system-ui, sans-serif;
+  --st-font-weight: 800;
+  --st-duration: 130ms;
+}

@@ -2,21 +2,29 @@
 
 A React switch component that scales proportionally from one `height` value.
 
-This project is local-only right now. It is not initialized with Git, not connected to GitHub, and not ready for npm publishing yet.
-
-## Why It Exists
-
-Most UI libraries expose fixed switch sizes such as `small` and `medium`. This package is built around a different sizing model:
-
 ```tsx
 <ScalableToggle height={44} />
 ```
 
-The width, knob, padding, labels, icons, radius, and animation distance all scale from that height.
+The width, knob, padding, labels, icons, radius, and animation distance all scale from that height. It works without MUI, Chakra, Tailwind, Ant Design, RSuite, or any other UI library, but can inherit their theme values through CSS variables.
+
+Live demo: https://ahmed-nasreldeen.github.io/react-scalable-toggle/
+
+## Install
+
+```bash
+npm install react-scalable-toggle
+```
+
+```tsx
+import { ScalableToggle } from 'react-scalable-toggle';
+import 'react-scalable-toggle/style.css';
+```
 
 ## Basic Usage
 
 ```tsx
+import { useState } from 'react';
 import { ScalableToggle } from 'react-scalable-toggle';
 import 'react-scalable-toggle/style.css';
 
@@ -25,6 +33,7 @@ function Example() {
 
   return (
     <ScalableToggle
+      aria-label="Enable notifications"
       height={44}
       checked={checked}
       onChange={setChecked}
@@ -35,7 +44,48 @@ function Example() {
 }
 ```
 
-## Theme With CSS Variables
+## Sizing
+
+`height` is the main sizing API. By default, width is calculated with the built-in ratio `96 / 44`.
+
+```tsx
+<ScalableToggle height={24} />
+<ScalableToggle height={44} />
+<ScalableToggle height={72} />
+```
+
+You can override the width when a design needs a wider or narrower switch:
+
+```tsx
+<ScalableToggle height={44} width={128} />
+```
+
+## Content
+
+Use text, icons, both, or no visible content.
+
+```tsx
+<ScalableToggle checkedLabel="Yes" uncheckedLabel="No" />
+
+<ScalableToggle
+  aria-label="Use compact mode"
+  checkedIcon={<CheckIcon />}
+  uncheckedIcon={<XIcon />}
+/>
+
+<ScalableToggle
+  checkedIcon={<CheckIcon />}
+  checkedLabel="Live"
+  uncheckedIcon={<PauseIcon />}
+  uncheckedLabel="Hold"
+/>
+
+<ScalableToggle aria-label="Enable notifications" />
+```
+
+## Styling
+
+For normal theming, set CSS variables on the root.
 
 ```css
 .brand-toggle {
@@ -48,6 +98,7 @@ function Example() {
   --st-font-weight: 700;
   --st-font-size: 14px;
   --st-shadow: 0 2px 4px rgb(0 0 0 / 20%);
+  --st-duration: 160ms;
 }
 ```
 
@@ -55,90 +106,76 @@ function Example() {
 <ScalableToggle className="brand-toggle" height={44} />
 ```
 
-## No Text
+For deeper customization, pass slot classes:
 
 ```tsx
 <ScalableToggle
-  height={44}
-  aria-label="Enable notifications"
+  classes={{
+    root: 'my-root',
+    input: 'my-input',
+    track: 'my-track',
+    knob: 'my-knob',
+    checkedContent: 'my-checked',
+    uncheckedContent: 'my-unchecked',
+  }}
 />
 ```
 
-## MUI Example
+## Theme Presets
+
+Optional theme preset files are included. They only set CSS variables; they do not install or import those UI libraries.
 
 ```tsx
-import { styled } from '@mui/material/styles';
-import { ScalableToggle } from 'react-scalable-toggle';
+import 'react-scalable-toggle/style.css';
+import 'react-scalable-toggle/themes/mui.css';
 
-const MuiToggle = styled(ScalableToggle)(({ theme }) => ({
-  '--st-on-bg': theme.palette.primary.main,
-  '--st-off-bg': theme.palette.grey[300],
-  '--st-off-color': theme.palette.text.primary,
-  '--st-font-family': theme.typography.fontFamily,
-  '--st-font-weight': theme.typography.fontWeightMedium,
-  '--st-shadow': theme.shadows[2],
-  '--st-duration': `${theme.transitions.duration.shorter}ms`,
-}));
+<ScalableToggle className="st-theme-mui" height={44} />
 ```
 
-This keeps the package colors unless you choose to map colors from the MUI theme too.
+Available presets:
 
-## RSuite Example
+- `react-scalable-toggle/themes/mui.css` with `st-theme-mui`
+- `react-scalable-toggle/themes/chakra.css` with `st-theme-chakra`
+- `react-scalable-toggle/themes/tailwind.css` with `st-theme-tailwind`
+- `react-scalable-toggle/themes/antd.css` with `st-theme-antd`
+- `react-scalable-toggle/themes/rsuite.css` with `st-theme-rsuite`
+- `react-scalable-toggle/themes/radix.css` with `st-theme-radix`
 
-```css
-.rsuite-toggle {
-  --st-on-bg: var(--rs-primary-500);
-  --st-off-bg: var(--rs-gray-300);
-  --st-off-color: var(--rs-text-primary);
-  --st-font-family: var(--rs-font-family-base);
-  --st-shadow: var(--rs-state-focus-shadow);
-}
+## API
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `height` | `number` | `44` | Main size value. The full switch scales from this. |
+| `width` | `number` | `height * ratio` | Optional width override. |
+| `ratio` | `number` | `96 / 44` | Width-to-height ratio used when `width` is not provided. |
+| `checked` | `boolean` | - | Controlled checked state. |
+| `defaultChecked` | `boolean` | - | Initial checked state for uncontrolled usage. |
+| `onChange` | `(checked, details) => void` | - | Called with the next checked value. |
+| `checkedLabel` | `ReactNode` | - | Content shown when checked. |
+| `uncheckedLabel` | `ReactNode` | - | Content shown when unchecked. |
+| `checkedIcon` | `ReactNode` | - | Icon/content shown when checked. |
+| `uncheckedIcon` | `ReactNode` | - | Icon/content shown when unchecked. |
+| `disabled` | `boolean` | `false` | Disables interaction. |
+| `readOnly` | `boolean` | `false` | Makes the control non-interactive. |
+| `className` | `string` | - | Class applied to the root label. |
+| `classes` | `object` | - | Slot classes for root/input/track/knob/content. |
+| `style` | `CSSProperties` | - | Inline root styles and CSS variables. |
+| `aria-label` | `string` | - | Accessible label when no visible label exists. |
+| `aria-labelledby` | `string` | - | Accessible label reference. |
+| `aria-describedby` | `string` | - | Accessible description reference. |
+
+## Accessibility
+
+The component renders a real checkbox input with `role="switch"`, so it supports label clicks, keyboard interaction, forms, and accessible names. Provide `aria-label` or `aria-labelledby` when the switch has no surrounding visible label.
+
+Decorative text, icon, and knob layers use `pointer-events: none`, so clicks pass through to the input instead of getting trapped by visual content.
+
+## Development
+
+```bash
+npm install
+npm run dev
+npm run check
 ```
 
-```tsx
-<ScalableToggle className="rsuite-toggle" height={40} />
-```
-
-This keeps RSuite as app styling. It is not a package dependency.
-
-## Other Library Examples
-
-The same pattern works with any library or design system because the package only needs CSS variables:
-
-```css
-.chakra-toggle {
-  --st-on-bg: #319795;
-  --st-off-bg: #e6fffa;
-  --st-off-color: #285e61;
-  --st-font-family: Inter, system-ui, sans-serif;
-}
-
-.tailwind-toggle {
-  --st-on-bg: #4f46e5;
-  --st-off-bg: #e0e7ff;
-  --st-off-color: #3730a3;
-  --st-font-weight: 800;
-}
-
-.antd-toggle {
-  --st-on-bg: #1677ff;
-  --st-off-bg: #f0f0f0;
-  --st-font-size: 12px;
-}
-```
-
-## Icon Example
-
-Any icon library can be passed as React content:
-
-```tsx
-<ScalableToggle
-  height={54}
-  checkedIcon={<CheckIcon />}
-  uncheckedIcon={<XIcon />}
-/>
-```
-
-## Current Status
-
-The source component and local demo are a first draft. Next steps are package installation, build verification, tests, docs, and a beta publish.
+`npm run check` runs typecheck, tests, package build, and demo build.

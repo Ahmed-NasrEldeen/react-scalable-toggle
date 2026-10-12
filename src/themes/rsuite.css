@@ -1,0 +1,9 @@
+.st-theme-rsuite {
+  --st-on-bg: var(--rs-primary-500, #3498ff);
+  --st-off-bg: var(--rs-gray-300, #e5e5ea);
+  --st-off-color: var(--rs-text-primary, #343434);
+  --st-font-family: var(--rs-font-family-base, "Helvetica Neue", Arial, sans-serif);
+  --st-font-weight: 600;
+  --st-shadow: 0 1px 4px rgb(31 45 61 / 18%);
+  --st-duration: 160ms;
+}

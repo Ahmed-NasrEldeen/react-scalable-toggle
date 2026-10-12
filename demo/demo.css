@@ -195,16 +195,16 @@ h2 {
   line-height: 1.45;
 }
 
-.demo-toggle.blue {
+.blue {
   --st-on-bg: #2264e5;
 }
 
-.demo-toggle.violet {
+.violet {
   --st-on-bg: #6d5dfc;
   --st-off-bg: #e4e7ef;
 }
 
-.demo-toggle.violet .st-content svg {
+.violet .st-content svg {
   fill: currentColor;
 }
 
